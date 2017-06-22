@@ -19,7 +19,7 @@
 var noise = new p5.Noise('brown');
 
 var delay = new p5.Delay();
-delay.process(noise, 0.025, 0.8, 8380);
+delay.process(noise, 0.025, 0.8);
 
 var isplaying = false;
 
@@ -30,7 +30,7 @@ btn.addEventListener('click', function(e){
     noise.start();
     isplaying = true;
   } else {
-    e.target.textContent = "Make some noise";
+    e.target.textContent = "Play";
     noise.stop();
     isplaying = false;
   }
