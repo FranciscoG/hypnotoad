@@ -1,5 +1,7 @@
-
-/*
+/* global p5 */
+/*****************************************************
+ *  HypnoToad Sound and Eye animation
+ 
   sources
   
   A good explanation and recreation of the sound (with some history of it too)
@@ -11,27 +13,48 @@
   
   p5 sound!
   https://github.com/processing/p5.js-sound
+
+  animation example
+  https://codepen.io/chiunhauyou/pen/LkjvYw?editors=0010
  */
 
-/* global p5 */
+var noise;
+var delay;
+function setup() {
+  createCanvas(200, 200);
+  noise = new p5.Noise('brown');
+  delay = new p5.Delay();
+  delay.process(noise, 0.025, 0.8);
+}
 
+function drawPupil() {
+  var w = 50;
+  var h = 50;
+  var strokeW = 5;
+  
+  stroke('yellow');
+  strokeWeight(strokeW);
+  fill('black');
+  ellipse(100, 100, w, h);
 
-var noise = new p5.Noise('brown');
+  stroke('red');
+  strokeWeight(3);
+  fill('black');
+  ellipse(100, 100, w-strokeW, h-strokeW);
+  
+}
 
-var delay = new p5.Delay();
-delay.process(noise, 0.025, 0.8);
+function draw() {
+  
+  // background of the eye
+  stroke(0,0,0);
+  strokeWeight(2);
+  fill(167,140,21);
+  ellipse(100, 100, 160, 160);
 
-var isplaying = false;
+  drawPupil();
 
-var btn = document.getElementById('start');
-btn.addEventListener('click', function(e){
-  if (!isplaying) {
-    e.target.textContent = "Stop";
+  if (mouseIsPressed) {
     noise.start();
-    isplaying = true;
-  } else {
-    e.target.textContent = "Play";
-    noise.stop();
-    isplaying = false;
   }
-});
+}
