@@ -4,15 +4,25 @@
   <title></title>
   <style>
     .container {
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+    .flex {
       display: flex;
       flex-direction: row;
-      margin-bottom: 10px;
+      justify-content: space-between;
+    }
+    .pod {
+      width: 40%;
     }
   </style>
 </head>
 <body>
+
   <img src="img/hypnotoad-animated.gif" />
   <br/>
+
   <script src="js/p5.min.js"></script>
   <script src="js/p5.sound.min.js"></script>
   <script src="js/hypno.js"></script>
