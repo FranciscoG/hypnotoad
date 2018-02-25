@@ -16,10 +16,15 @@
 
   animation example
   https://codepen.io/chiunhauyou/pen/LkjvYw?editors=0010
+
+  blurred edges
+  https://forum.processing.org/one/topic/blurred-edges-ellipse.html
+
  */
 
 var noise;
 var delay;
+var cir
 function setup() {
   createCanvas(200, 200);
   noise = new p5.Noise('brown');
@@ -27,18 +32,27 @@ function setup() {
   delay.process(noise, 0.025, 0.8);
 }
 
+function makeBlurryCircle(){
+  cir = createGraphics(150, 150);
+  cir.background(0,0,0,0);
+  cir.fill('black');
+  cir.noStroke();
+  cir.ellipse(50,50,80,80);
+  cir.filter(BLUR,4);
+}
+
 function drawPupil() {
-  var w = 50;
-  var h = 50;
-  var strokeW = 5;
+  var w = 100;
+  var h = 100;
+  var strokeW = 10;
   
   stroke('yellow');
-  strokeWeight(strokeW);
+  strokeWeight(strokeW/2);
   fill('black');
   ellipse(100, 100, w, h);
 
   stroke('red');
-  strokeWeight(3);
+  strokeWeight(strokeW/2);
   fill('black');
   ellipse(100, 100, w-strokeW, h-strokeW);
   
@@ -53,6 +67,9 @@ function draw() {
   ellipse(100, 100, 160, 160);
 
   drawPupil();
+
+  // makeBlurryCircle();
+  // image( cir, 50, 50 );
 
   if (mouseIsPressed) {
     noise.start();
