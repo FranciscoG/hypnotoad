@@ -30,6 +30,7 @@ function setup() {
   noise = new p5.Noise('brown');
   delay = new p5.Delay();
   delay.process(noise, 0.025, 0.8);
+  frameRate(60);
 }
 
 function drawPupil() {
@@ -40,9 +41,11 @@ function drawPupil() {
   stroke('yellow');
   strokeWeight(strokeW/2);
   fill('black');
+
+  push();
   beginShape();
 
-  var p1 = [65, 75];
+  var p1 = [65, 80];
   var p2 = [200 - p1[0], p1[1]];
   var p3 = [p2[0], 200 - p1[1]];
   var p4 = [p1[0], p3[1]];
@@ -85,6 +88,8 @@ function drawPupil() {
   bezierVertex(dX, dY, dX2, dY2, p1[0], p1[1]);
   
   endShape();
+  pop();
+  // return;
 
   // just to show where the curve points are
   var size = 3;
