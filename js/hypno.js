@@ -1,4 +1,5 @@
 /* global p5 */
+/// <reference path="../p5_types/global.d.ts" />
 /*****************************************************
  *  HypnoToad Sound and Eye animation
  
@@ -39,11 +40,11 @@ class WigglePoint {
     this.dirX = "right";
     this.dirY = "up";
 
-    this.minX = p[0] - range;
-    this.maxX = p[0] + range;
+    this.minX = p.x - range;
+    this.maxX = p.x + range;
 
-    this.minY = p[1] - range;
-    this.maxY = p[1] + range;
+    this.minY = p.y - range;
+    this.maxY = p.y + range;
   }
 
   x(x) {
@@ -52,7 +53,7 @@ class WigglePoint {
     } else if (x > this.minX && this.dirX === "left") {
       x = x - 1;
     }
-  
+
     if (x >= this.maxX) {
       this.dirX = "left";
     } else if (x <= this.minX) {
@@ -78,7 +79,7 @@ class WigglePoint {
   }
 
   wiggle(p) {
-    return [this.x(p[0]), this.y(p[1])];
+    return { x: this.x(p.x), y: this.y(p.y) };
   }
 }
 
@@ -94,7 +95,6 @@ class MoveInRange {
 
   // this just does a linear animation
   move(point) {
-    
     if (point > this.min && !this.flip) {
       point = point - this.speed;
     } else if (point < this.max && this.flip) {
@@ -106,21 +106,21 @@ class MoveInRange {
     } else if (point >= this.max) {
       this.flip = false;
     }
-    return point
+    return point;
   }
 }
 
 // this is the starting x,y point
-var p1 = [65, 80];
+var p1 = { x: 65, y: 80 };
 var wiggleP1 = new WigglePoint(p1, 1);
 
-var p2 = [200 - p1[0], p1[1]];
+var p2 = { x: 200 - p1.x, y: p1.y };
 var wiggleP2 = new WigglePoint(p2, 1);
 
-var p3 = [p2[0], 200 - p1[1]];
+var p3 = { x: p2.x, y: 200 - p1.y };
 var wiggleP3 = new WigglePoint(p3, 1);
 
-var p4 = [p1[0], p3[1]];
+var p4 = { x: p1.x, y: p3.y };
 var wiggleP4 = new WigglePoint(p4, 1);
 
 // top - moving the control points of the curves to go from curve to flat and back
@@ -131,17 +131,17 @@ var moveAY = new MoveInRange(30, 80, 5);
 // right side - wiggle
 var bX = 175;
 var bY = 80;
-var widdleB = new WigglePoint([bX, bY], 2);
+var widdleB = new WigglePoint({ x: bX, y: bY }, 2);
 
 // Bottom - moving the control points of the curves to go from curve to flat and back
 var cX = 115;
 var cY = 148;
-var moveCY = new MoveInRange(120, 150, 3)
+var moveCY = new MoveInRange(120, 150, 3);
 
 // left side - wiggle
 var dX = 25;
 var dY = 120;
-var widdleD = new WigglePoint([dX, dY], 1);
+var widdleD = new WigglePoint({ x: dX, y: dY }, 1);
 
 function drawPupil() {
   var strokeW = 10;
@@ -153,7 +153,7 @@ function drawPupil() {
   beginShape();
 
   // starting x, y
-  vertex(p1[0], p1[1]);
+  vertex(p1.x, p1.y);
   p1 = wiggleP1.wiggle(p1);
 
   // bezierVertex(cpx1, cpy1, cpx2, cpy2, x, y);
@@ -167,8 +167,8 @@ function drawPupil() {
   // var aY = 45;
   var aX2 = 200 - aX;
   var aY2 = aY;
-  bezierVertex(aX, aY, aX2, aY2, p2[0], p2[1]);
-  p2 = wiggleP2.wiggle(p2)
+  bezierVertex(aX, aY, aX2, aY2, p2.x, p2.y);
+  p2 = wiggleP2.wiggle(p2);
   aY = moveAY.move(aY);
 
   // right side curve
@@ -176,18 +176,18 @@ function drawPupil() {
   // var bY = 200 - 120;
   var bX2 = bX;
   var bY2 = 120;
-  bezierVertex(bX, bY, bX2, bY2, p3[0], p3[1]);
+  bezierVertex(bX, bY, bX2, bY2, p3.x, p3.y);
   p3 = wiggleP3.wiggle(p3);
-  var b = widdleB.wiggle([bX, bY]);
-  bX = b[0];
-  bY = b[1];
+  var b = widdleB.wiggle({ x: bX, y: bY });
+  bX = b.x;
+  bY = b.y;
 
   // bottom curve
   // var cX = 115;
   // var cY = 148;
   var cX2 = 200 - cX;
   var cY2 = cY;
-  bezierVertex(cX, cY, cX2, cY2, p4[0], p4[1]);
+  bezierVertex(cX, cY, cX2, cY2, p4.x, p4.y);
   p4 = wiggleP4.wiggle(p4);
   cY = moveCY.move(cY);
 
@@ -196,10 +196,10 @@ function drawPupil() {
   // var dY = 120;
   var dX2 = dX;
   var dY2 = 200 - dY;
-  bezierVertex(dX, dY, dX2, dY2, p1[0], p1[1]);
-  var d = widdleD.wiggle([dX, dY]);
-  dX = d[0];
-  dY = d[1];
+  bezierVertex(dX, dY, dX2, dY2, p1.x, p1.y);
+  var d = widdleD.wiggle({ x: dX, y: dY });
+  dX = d.x;
+  dY = d.y;
 
   endShape();
   return;
@@ -235,8 +235,12 @@ function eyeBackground() {
 function draw() {
   eyeBackground();
   drawPupil();
+}
 
-  if (mouseIsPressed) {
+function mousePressed() {
+  if (noise.started) {
+    noise.stop();
+  } else {
     noise.start();
   }
 }
