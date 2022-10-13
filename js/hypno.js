@@ -1,4 +1,5 @@
 /* global p5 */
+/// <reference path="../p5_types/global.d.ts" />
 /*****************************************************
  *  HypnoToad Sound and Eye animation
  
