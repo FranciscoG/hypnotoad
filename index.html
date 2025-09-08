@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>hypnotoad in processing</title>
-  <style>
-    .container {
-      overflow: hidden;
-      margin: 0 auto;
-      max-width: 1000px;
-    }
-    .flex {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-    .pod {
-      width: 40%;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <title>hypnotoad in processing</title>
+    <style>
+      .container {
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .pod {
+        width: 40%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Hypnotoad animation and sound</h1>
+      <p>My attemp to recreate both the eyeball animation and sound using P5.js and Processing</p>
+    </header>
 
-  <img src="img/hypnotoad-animated.gif" />
-  <br/>
+    <img src="img/hypnotoad-animated.gif" />
+    <br />
 
-  <script src="js/p5.min.js"></script>
-  <script src="js/p5.sound.min.js"></script>
-  <script src="js/hypno.js"></script>
-</body>
+    <script src="js/p5.min.js"></script>
+    <script src="js/p5.sound.min.js"></script>
+    <script src="js/hypno-sound.js"></script>
+    <script src="js/hypno-eye.js"></script>
+    <script>
+      function setup() {
+        createCanvas(200, 200);
+        frameRate(60);
+      }
+      function draw() {
+        eyeBackground();
+        drawPupil();
+      }
+    </script>
+  </body>
 </html>
